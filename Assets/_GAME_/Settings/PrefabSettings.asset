@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee6c313bd8334520bbfff74327c3127, type: 3}
+  m_Name: PrefabSettings
+  m_EditorClassIdentifier: 
+  IdleClickerScreenPrefab: {fileID: 2222300499359006984, guid: c8d318542849449b38f88f0622d09e9b, type: 3}
+  LevelPrefab: {fileID: 6826862942052953354, guid: 2167176e1ad8c458dbc826e5af3b4b61, type: 3}
+  BladePrefab: {fileID: -5798382909345461080, guid: 9fb0ba0fae81445d381328c9f18cdb9a, type: 3}
+  BasketPrefab: {fileID: 5356241665394858729, guid: 5b9c2522d7499430aaad8f6761784ae3, type: 3}
+  BreadPrefab: {fileID: 720921526177032428, guid: efa3431326a5f436b86315e34d33a607, type: 3}

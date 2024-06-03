@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 886be4647d3334c98914f38c78155709, type: 3}
+  m_Name: BreadSettings
+  m_EditorClassIdentifier: 
+  Breads:
+  - BreadLevel: 0
+    Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    SliceThickness: 0.2
+    ColliderSize: {x: 2, y: 1, z: 1}
+    ColliderCenter: {x: -1, y: 0, z: 0}
+    DistanceNeededToSpawnNextBread: 2.5
+  - BreadLevel: 1
+    Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+    SliceThickness: 0.2
+    ColliderSize: {x: 2, y: 1, z: 1}
+    ColliderCenter: {x: -1, y: 0, z: 0}
+    DistanceNeededToSpawnNextBread: 2.5
+  - BreadLevel: 3
+    Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+    SliceThickness: 0.2
+    ColliderSize: {x: 2, y: 1, z: 1}
+    ColliderCenter: {x: -1, y: 0, z: 0}
+    DistanceNeededToSpawnNextBread: 2.5
+  - BreadLevel: 4
+    Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    SliceThickness: 0.2
+    ColliderSize: {x: 2, y: 1, z: 1}
+    ColliderCenter: {x: -1, y: 0, z: 0}
+    DistanceNeededToSpawnNextBread: 2.5
