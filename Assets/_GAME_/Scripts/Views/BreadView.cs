@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using BreadCutter.Data;
@@ -19,6 +20,7 @@ namespace BreadCutter.Views
         private Vector3 _colliderSize;
         private Vector3 _colliderCenter;
         private List<GameObject> _trashObjects = new List<GameObject>();
+        private bool _isBeingSliced;
         private int _lineIndex;
         public int LineIndex => _lineIndex;
         private int _breadLevel;
@@ -46,6 +48,7 @@ namespace BreadCutter.Views
         
         public void OnSpawned(BreadData data, int lineIndex, Vector3 pos, IMemoryPool pool)
         {
+            _isBeingSliced = false;
             transform.position = pos;
             _breadLevel = data.BreadLevel;
             _meshFilter.mesh = data.Mesh;
@@ -94,11 +97,6 @@ namespace BreadCutter.Views
             breadMeshGO.AddComponent<Rigidbody>();
             breadMeshGO.tag = Constants.Tags.Slice;
             
-            /*foreach (GameObject go in _trashObjects)
-            {
-                Destroy(go);
-            }
-            _trashObjects.Clear();*/
             _pool.Despawn(this);
         }
 
@@ -107,8 +105,28 @@ namespace BreadCutter.Views
             transform.DOJump(mergePos, 3, 1, _levelSettings.MergeAnimationTime);
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag(Constants.Tags.Blade))
+            {
+                _isBeingSliced = true;
+            }
+        }
+        
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag(Constants.Tags.Blade))
+            {
+                _isBeingSliced = false;
+            }
+        }
+
         public void DespawnBread()
         {
+            if (_isBeingSliced)
+            {
+                _signalBus.Fire<SlicingBreadDespawned>();
+            }
             _pool.Despawn(this);
         }
         

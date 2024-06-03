@@ -23,6 +23,7 @@ namespace BreadCutter.Installers
             Container.DeclareSignal<MergeButtonPressedSignal>().OptionalSubscriber();
             Container.DeclareSignal<MergeAnimationIsDone>().OptionalSubscriber();
             Container.DeclareSignal<PlayerTappingScreenSignal>().OptionalSubscriber();
+            Container.DeclareSignal<SlicingBreadDespawned>().OptionalSubscriber();
         }
     }
 }

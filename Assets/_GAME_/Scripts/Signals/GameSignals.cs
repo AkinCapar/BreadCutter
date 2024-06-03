@@ -99,3 +99,8 @@ public readonly struct PlayerTappingScreenSignal
 {
     
 }
+
+public readonly struct SlicingBreadDespawned
+{
+    
+}

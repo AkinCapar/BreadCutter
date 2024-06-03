@@ -32,6 +32,7 @@ namespace BreadCutter.Controllers
             _signalBus.Subscribe<BladeSpawnedSignal>(OnBladeSpawnedSignal);
             _signalBus.Subscribe<BasketIsLoadedSignal>(OnBasketIsLoadedSignal);
             _signalBus.Subscribe<BasketSpawnedSignal>(OnBasketSpawnedSignal);
+            _signalBus.Subscribe<SlicingBreadDespawned>(OnSlicingBreadDespawned);
         }
 
         private void OnBladeSpawnedSignal(BladeSpawnedSignal signal)
@@ -48,7 +49,10 @@ namespace BreadCutter.Controllers
         {
             BladeCanMove().Forget();
         }
-
+        private void OnSlicingBreadDespawned()
+        {
+            _blade.SlicingBreadDespawned();
+        }
         private async UniTask BladeCanMove()
         {
             await UniTask.WaitForSeconds(_levelSettings.BladeWaitTime);
@@ -60,6 +64,7 @@ namespace BreadCutter.Controllers
             _signalBus.Unsubscribe<BladeSpawnedSignal>(OnBladeSpawnedSignal);
             _signalBus.Unsubscribe<BasketIsLoadedSignal>(OnBasketIsLoadedSignal);
             _signalBus.Unsubscribe<BasketSpawnedSignal>(OnBasketSpawnedSignal);
+            _signalBus.Unsubscribe<SlicingBreadDespawned>(OnSlicingBreadDespawned);
         }
 
         public void Tick()

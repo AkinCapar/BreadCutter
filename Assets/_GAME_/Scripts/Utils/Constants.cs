@@ -24,6 +24,7 @@ public class Constants
         public const string BladeBorder = "BladeBorder";
         public const string Slice = "Slice";
         public const string Bread = "Bread";
+        public const string Blade = "Blade";
     }
 
     public struct Animations

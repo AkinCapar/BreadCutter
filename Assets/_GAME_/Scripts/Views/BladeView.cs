@@ -49,6 +49,11 @@ namespace BreadCutter.Views
             }
         }
 
+        public void SlicingBreadDespawned()
+        {
+            _currentlyCutting--;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag(Constants.Tags.BladeBorder))
