@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BladeBorder
   - Slice
+  - Bread
   layers:
   - Default
   - TransparentFX

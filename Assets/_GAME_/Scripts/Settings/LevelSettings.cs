@@ -15,5 +15,6 @@ namespace BreadCutter.Settings
         public float BasketMoveDuration;
         public float BasketWaitTime;
         public float MergeAnimationTime;
+        public float BladeBreadLevelDifferenceEffectAmount;
     }
 }

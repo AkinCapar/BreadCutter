@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _meshFilter: {fileID: 8563616843813967420}
+  _defaultSlicingPower: 1
 --- !u!65 &3286847138266647079
 BoxCollider:
   m_ObjectHideFlags: 0

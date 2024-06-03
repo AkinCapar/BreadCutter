@@ -18,3 +18,4 @@ MonoBehaviour:
   BasketMoveDuration: 3
   BasketWaitTime: 1
   MergeAnimationTime: 0.5
+  BladeBreadLevelDifferenceEffectAmount: 0.2

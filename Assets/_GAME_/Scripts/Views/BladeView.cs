@@ -1,6 +1,7 @@
 using System;
 using BreadCutter.Controllers;
 using BreadCutter.Data;
+using BreadCutter.Settings;
 using UnityEngine;
 using Zenject;
 
@@ -9,21 +10,26 @@ namespace BreadCutter.Views
     public class BladeView : MonoBehaviour
     {
         [SerializeField] private MeshFilter _meshFilter;
+        [SerializeField] private float _defaultSlicingPower;
 
         private int _bladeLevel;
         private int movingDirection = -1;
         private bool _waitForTheBasket;
         private bool _shouldStop;
         private float _slicingPower;
+        private int _currentlyCutting;
 
         #region Injection
 
         private SignalBus _signalBus;
+        private LevelSettings _levelSettings;
 
         [Inject]
-        private void Construct(SignalBus signalBus)
+        private void Construct(SignalBus signalBus
+            , LevelSettings levelSettings)
         {
             _signalBus = signalBus;
+            _levelSettings = levelSettings;
         }
 
         #endregion
@@ -55,11 +61,23 @@ namespace BreadCutter.Views
                     _signalBus.Fire<BasketCanChangeSignal>();
                 }
             }
-            
+
             if (other.TryGetComponent(out BreadView bread))
             {
-                /*int levelDifference = bread.BreadLevel - _bladeLevel;
-                _slicingPower += levelDifference **/ 
+                int levelDifference = bread.BreadLevel - _bladeLevel;
+                float newSlicingPower =
+                    (_defaultSlicingPower - levelDifference * _levelSettings.BladeBreadLevelDifferenceEffectAmount) - .2f;
+
+                if (newSlicingPower <= 0)
+                {
+                    _slicingPower = 0.1f;
+                }
+                else
+                {
+                    _slicingPower = newSlicingPower;
+                }
+
+                _currentlyCutting++;
             }
         }
 
@@ -74,11 +92,18 @@ namespace BreadCutter.Views
             _shouldStop = false;
         }
 
+
         private void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent(out BreadView bread))
             {
+                _currentlyCutting--;
                 _signalBus.Fire(new SliceSignal(bread, transform.position, transform.right));
+
+                if (_currentlyCutting == 0)
+                {
+                    _slicingPower = _defaultSlicingPower;
+                }
             }
         }
     }
