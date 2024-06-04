@@ -1,4 +1,5 @@
 using System;
+using System.Data.Common;
 using BreadCutter.Controllers;
 using BreadCutter.Data;
 using BreadCutter.Settings;
@@ -13,11 +14,13 @@ namespace BreadCutter.Views
         [SerializeField] private float _defaultSlicingPower;
 
         private int _bladeLevel;
+        public int BladeLevel => _bladeLevel;
         private int movingDirection = -1;
         private bool _waitForTheBasket;
         private bool _shouldStop;
         private float _slicingPower;
         private int _currentlyCutting;
+        private float _inputPower;
 
         #region Injection
 
@@ -45,8 +48,14 @@ namespace BreadCutter.Views
         {
             if (!_shouldStop)
             {
-                transform.position += moveAmount * movingDirection * _slicingPower * Time.deltaTime;
+                transform.position += moveAmount * movingDirection * _slicingPower * _inputPower * Time.deltaTime;
             }
+        }
+
+        public void UpgradeBlade(BladeData data)
+        {
+            _meshFilter.mesh = data.Mesh;
+            _bladeLevel = data.BladeLevel;
         }
 
         public void SlicingBreadDespawned()
@@ -84,6 +93,11 @@ namespace BreadCutter.Views
 
                 _currentlyCutting++;
             }
+        }
+
+        public void SetInputPower(float inputPower)
+        {
+            _inputPower = inputPower;
         }
 
         public void WaitForBasketChange()

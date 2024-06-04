@@ -95,12 +95,22 @@ public readonly struct MergeAnimationIsDone
     }
 }
 
-public readonly struct PlayerTappingScreenSignal
+public readonly struct SlicingBreadDespawned
 {
     
 }
 
-public readonly struct SlicingBreadDespawned
+public readonly struct PlayerCooldownSignal
+{
+    public readonly float TimeHeldDown;
+
+    public PlayerCooldownSignal(float timeHeldDown)
+    {
+        TimeHeldDown = timeHeldDown;
+    }
+}
+
+public readonly struct UpgradeBladeButtonPressedSignal
 {
     
 }

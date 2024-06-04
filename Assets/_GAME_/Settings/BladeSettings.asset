@@ -16,3 +16,6 @@ MonoBehaviour:
   - BladeLevel: 0
     Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
     ColliderSize: {x: 0, y: 0, z: 0}
+  - BladeLevel: 1
+    Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    ColliderSize: {x: 0, y: 0, z: 0}

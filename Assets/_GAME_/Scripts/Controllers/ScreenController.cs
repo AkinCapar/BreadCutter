@@ -54,7 +54,9 @@ namespace BreadCutter.Controllers
 
         private void SwitchToIdleClickerScreen()
         {
-            _diContainer.InstantiatePrefabForComponent<IdleClickerScreenView>(_prefabSettings.IdleClickerScreenPrefab);
+            IdleClickerScreenView screenView = 
+                _diContainer.InstantiatePrefabForComponent<IdleClickerScreenView>(_prefabSettings.IdleClickerScreenPrefab);
+            screenView.Initialize();
         }
 
         private void ClearScreens()

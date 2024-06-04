@@ -19,3 +19,5 @@ MonoBehaviour:
   BasketWaitTime: 1
   MergeAnimationTime: 0.5
   BladeBreadLevelDifferenceEffectAmount: 0.2
+  MaxCooldownAmount: 5
+  PlayerInputEffectAmount: 1

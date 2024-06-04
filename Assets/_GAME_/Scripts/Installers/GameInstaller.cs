@@ -29,7 +29,6 @@ namespace BreadCutter.Installers
             //MODELS
             Container.Bind<LevelModel>().AsSingle();
             Container.Bind<BreadModel>().AsSingle();
-            Container.Bind<BladeModel>().AsSingle();
 
             //CONTROLLERS
             Container.BindInterfacesAndSelfTo<GameController>().AsSingle();
