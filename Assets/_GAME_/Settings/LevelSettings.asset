@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e60054e60de414ca3c8f1f043df4c7, type: 3}
   m_Name: LevelSettings
   m_EditorClassIdentifier: 
-  BladeInitialSpeed: 6
+  BladeInitialSpeed: 7
   BladeWaitTime: 3
-  BasketMaxSliceAmount: 15
+  BasketMaxSliceAmount: 100
   BasketMoveDuration: 3
   BasketWaitTime: 1
   MergeAnimationTime: 0.5
   BladeBreadLevelDifferenceEffectAmount: 0.2
   MaxCooldownAmount: 5
   PlayerInputEffectAmount: 1
+  BladeTurnSpeed: 300

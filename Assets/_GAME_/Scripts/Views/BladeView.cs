@@ -52,6 +52,14 @@ namespace BreadCutter.Views
             }
         }
 
+        public void TurnBlade(float turnSpeed)
+        {
+            if (!_shouldStop)
+            {
+                transform.Rotate(Vector3.right, turnSpeed * _inputPower * Time.deltaTime);
+            }
+        }
+
         public void UpgradeBlade(BladeData data)
         {
             _meshFilter.mesh = data.Mesh;

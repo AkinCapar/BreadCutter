@@ -18,5 +18,6 @@ namespace BreadCutter.Settings
         public float BladeBreadLevelDifferenceEffectAmount;
         public float MaxCooldownAmount;
         public float PlayerInputEffectAmount;
+        public float BladeTurnSpeed;
     }
 }

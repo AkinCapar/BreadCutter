@@ -16,6 +16,7 @@ namespace BreadCutter.Views
         [SerializeField] private float _moveDuration;
         [SerializeField] private BoxCollider _boxCollider;
         [SerializeField] private GameObject _mainMeshGO;
+        [SerializeField] private MeshRenderer _meshRenderer;
         private float _sliceThickness;
         private Vector3 _colliderSize;
         private Vector3 _colliderCenter;
@@ -48,6 +49,7 @@ namespace BreadCutter.Views
         
         public void OnSpawned(BreadData data, int lineIndex, Vector3 pos, IMemoryPool pool)
         {
+            SetMeshRendererMaterialAmount(data.MaterialAmount);
             _isBeingSliced = false;
             transform.position = pos;
             _breadLevel = data.BreadLevel;
@@ -59,8 +61,33 @@ namespace BreadCutter.Views
             _boxCollider.center = _colliderCenter;
             _mainMeshGO.SetActive(true);
             breadMeshGO = _mainMeshGO;
+            _mainMeshGO.transform.localPosition = data.MeshGOPosition;
             _lineIndex = lineIndex;
             _pool = pool;
+        }
+
+        private void SetMeshRendererMaterialAmount(int dataMatAmount)
+        {
+            if (_meshRenderer.materials.Length != dataMatAmount)
+            {
+                Material[] currentMaterials = _meshRenderer.materials;
+                Material[] newMaterials = new Material[dataMatAmount];
+
+                for (int i = 0; i < newMaterials.Length; i++)
+                {
+                    if (i < currentMaterials.Length)
+                    {
+                        newMaterials[i] = currentMaterials[i];
+                    }
+
+                    else
+                    {
+                        newMaterials[i] = newMaterials[i - 1];
+                    }
+                }
+
+                _meshRenderer.materials = newMaterials;
+            }
         }
 
         public void MoveForward()

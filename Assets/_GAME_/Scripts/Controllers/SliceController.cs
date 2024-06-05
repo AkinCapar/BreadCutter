@@ -34,7 +34,7 @@ public class SliceController : BaseController
         slice.transform.tag = Constants.Tags.Slice;
         bread.OnSliced(breadLeft);
         slice.AddComponent<BoxCollider>().size = bread._sliceSize;;
-        slice.AddComponent<Rigidbody>();//.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        slice.AddComponent<Rigidbody>();
     }
 
     public override void Dispose()

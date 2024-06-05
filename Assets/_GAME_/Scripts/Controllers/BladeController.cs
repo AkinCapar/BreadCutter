@@ -92,6 +92,7 @@ namespace BreadCutter.Controllers
             if (_blade != null)
             {
                 _blade.MoveBlade(Vector3.back * _levelSettings.BladeInitialSpeed);
+                _blade.TurnBlade(_levelSettings.BladeTurnSpeed);
             }
         }
     }

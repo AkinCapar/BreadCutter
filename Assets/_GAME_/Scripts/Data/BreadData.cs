@@ -12,5 +12,7 @@ namespace BreadCutter.Data
         public Vector3 ColliderSize;
         public Vector3 ColliderCenter;
         public float DistanceNeededToSpawnNextBread;
+        public Vector3 MeshGOPosition;
+        public int MaterialAmount;
     }
 }
