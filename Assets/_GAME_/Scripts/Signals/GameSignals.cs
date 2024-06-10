@@ -114,3 +114,8 @@ public readonly struct UpgradeBladeButtonPressedSignal
 {
     
 }
+
+public readonly struct MergeOperationStartedSignal
+{
+    
+}

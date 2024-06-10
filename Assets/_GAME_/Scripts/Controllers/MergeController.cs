@@ -10,6 +10,8 @@ namespace BreadCutter.Controllers
 {
     public class MergeController : BaseController
     {
+        private bool _merging;
+        
         #region Injection
 
         private BreadModel _breadModel;
@@ -31,6 +33,11 @@ namespace BreadCutter.Controllers
 
         private void OnMergeButtonPressedSignal()
         {
+            if (_merging)
+            {
+                return;
+            }
+            
             for (int i = 0; i < _breadModel.breadLines.Count - 1; i++)
             {
                 for (int j = i + 1; j < _breadModel.breadLines.Count; j++)
@@ -39,6 +46,8 @@ namespace BreadCutter.Controllers
                     {
                         if (_breadModel.breadLines[i][0].BreadLevel == _breadModel.breadLines[j][0].BreadLevel)
                         {
+                            _signalBus.Fire<MergeOperationStartedSignal>();
+                            _merging = true;
                             Merge(_breadModel.breadLines[i], _breadModel.breadLines[j]).Forget();
                             return;
                         }
@@ -58,6 +67,7 @@ namespace BreadCutter.Controllers
             await UniTask.WaitForSeconds(_levelSettings.MergeAnimationTime);
 
             _signalBus.Fire(new MergeAnimationIsDone(list1, list2));
+            _merging = false;
         }
 
         public override void Dispose()

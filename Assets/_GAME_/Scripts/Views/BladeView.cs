@@ -10,6 +10,7 @@ namespace BreadCutter.Views
 {
     public class BladeView : MonoBehaviour
     {
+        [SerializeField] private GameObject _bladeBody;
         [SerializeField] private MeshFilter _meshFilter;
         [SerializeField] private float _defaultSlicingPower;
 
@@ -56,7 +57,7 @@ namespace BreadCutter.Views
         {
             if (!_shouldStop)
             {
-                transform.Rotate(Vector3.right, turnSpeed * _inputPower * Time.deltaTime);
+                _bladeBody.transform.Rotate(Vector3.up, turnSpeed * _inputPower * Time.deltaTime);
             }
         }
 
@@ -69,6 +70,10 @@ namespace BreadCutter.Views
         public void SlicingBreadDespawned()
         {
             _currentlyCutting--;
+            if (_currentlyCutting == 0)
+            {
+                _slicingPower = _defaultSlicingPower;
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -88,7 +93,7 @@ namespace BreadCutter.Views
             {
                 int levelDifference = bread.BreadLevel - _bladeLevel;
                 float newSlicingPower =
-                    (_defaultSlicingPower - levelDifference * _levelSettings.BladeBreadLevelDifferenceEffectAmount) - .2f;
+                    (_defaultSlicingPower - levelDifference * _levelSettings.BladeBreadLevelDifferenceEffectAmount) - _levelSettings.DefaultBladeSlicingDelay;
 
                 if (newSlicingPower <= 0)
                 {
@@ -124,6 +129,7 @@ namespace BreadCutter.Views
         {
             if (other.TryGetComponent(out BreadView bread))
             {
+                Debug.Log("akin1234");
                 _currentlyCutting--;
                 _signalBus.Fire(new SliceSignal(bread, transform.position, transform.right));
 

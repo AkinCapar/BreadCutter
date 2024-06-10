@@ -25,6 +25,7 @@ namespace BreadCutter.Installers
             Container.DeclareSignal<SlicingBreadDespawned>().OptionalSubscriber();
             Container.DeclareSignal<PlayerCooldownSignal>().OptionalSubscriber();
             Container.DeclareSignal<UpgradeBladeButtonPressedSignal>().OptionalSubscriber();
+            Container.DeclareSignal<MergeOperationStartedSignal>().OptionalSubscriber();
         }
     }
 }

@@ -16,6 +16,7 @@ namespace BreadCutter.Settings
         public float BasketWaitTime;
         public float MergeAnimationTime;
         public float BladeBreadLevelDifferenceEffectAmount;
+        public float DefaultBladeSlicingDelay;
         public float MaxCooldownAmount;
         public float PlayerInputEffectAmount;
         public float BladeTurnSpeed;
