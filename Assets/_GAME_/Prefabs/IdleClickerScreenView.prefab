@@ -507,9 +507,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2222300499359006984}
         m_TargetAssemblyTypeName: IdleClickerScreenView, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: OnExpandButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

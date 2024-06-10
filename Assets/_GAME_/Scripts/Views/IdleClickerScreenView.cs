@@ -47,6 +47,11 @@ public class IdleClickerScreenView : MonoBehaviour
         _cooldownSlider.fillAmount = remapValue;
     }
 
+    public void OnExpandButtonPressed()
+    {
+        _signalBus.Fire<ExpandButtonPressedSignal>();
+    }
+
     public void UpgradeBladeButtonPressed()
     {
         _signalBus.Fire<UpgradeBladeButtonPressedSignal>();

@@ -8,6 +8,6 @@ namespace BreadCutter.Views
     {
         public Transform bladePos;
         public Transform basketPos;
-        public Transform[] breadPositions;
+        public ConveyorView conveyorView;
     }
 }

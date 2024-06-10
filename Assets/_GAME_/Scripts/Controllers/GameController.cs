@@ -24,6 +24,7 @@ namespace BreadCutter.Controllers
         private SliceController _sliceController;
         private MergeController _mergeController;
         private InputController _inputController;
+        private ConveyorController _conveyorController;
 
         public GameController(LevelController levelController
             , BasketSpawnController basketSpawnController
@@ -34,7 +35,8 @@ namespace BreadCutter.Controllers
             , ScreenController screenController
             , SliceController sliceController
             , MergeController mergeController
-            , InputController inputController)
+            , InputController inputController
+            , ConveyorController conveyorController)
         {
             _levelController = levelController;
             _breadSpawnController = breadSpawnController;
@@ -46,6 +48,7 @@ namespace BreadCutter.Controllers
             _sliceController = sliceController;
             _mergeController = mergeController;
             _inputController = inputController;
+            _conveyorController = conveyorController;
         }
 
         #endregion
@@ -104,6 +107,7 @@ namespace BreadCutter.Controllers
             _sliceController.Initialize();
             _mergeController.Initialize();
             _inputController.Initialize();
+            _conveyorController.Initialize();
             _levelController.Initialize();
         }
 
@@ -123,6 +127,7 @@ namespace BreadCutter.Controllers
             _sliceController.Dispose();
             _mergeController.Dispose();
             _inputController.Dispose();
+            _conveyorController.Dispose();
             _levelController.Dispose();
         }
     }

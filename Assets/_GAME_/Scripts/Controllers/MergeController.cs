@@ -66,7 +66,7 @@ namespace BreadCutter.Controllers
 
             await UniTask.WaitForSeconds(_levelSettings.MergeAnimationTime);
 
-            _signalBus.Fire(new MergeAnimationIsDone(list1, list2));
+            _signalBus.Fire(new MergeAnimationIsDoneSignal(list1, list2));
             _merging = false;
         }
 

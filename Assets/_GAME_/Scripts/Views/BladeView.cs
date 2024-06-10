@@ -129,7 +129,6 @@ namespace BreadCutter.Views
         {
             if (other.TryGetComponent(out BreadView bread))
             {
-                Debug.Log("akin1234");
                 _currentlyCutting--;
                 _signalBus.Fire(new SliceSignal(bread, transform.position, transform.right));
 

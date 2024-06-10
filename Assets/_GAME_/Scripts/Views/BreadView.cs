@@ -152,7 +152,7 @@ namespace BreadCutter.Views
         {
             if (_isBeingSliced)
             {
-                _signalBus.Fire<SlicingBreadDespawned>();
+                _signalBus.Fire<SlicingBreadDespawnedSignal>();
             }
             _pool.Despawn(this);
         }

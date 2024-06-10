@@ -20,5 +20,6 @@ namespace BreadCutter.Settings
         public float MaxCooldownAmount;
         public float PlayerInputEffectAmount;
         public float BladeTurnSpeed;
+        public int LineBreadAmount;
     }
 }

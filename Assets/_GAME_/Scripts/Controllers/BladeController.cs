@@ -33,7 +33,7 @@ namespace BreadCutter.Controllers
             _signalBus.Subscribe<BladeSpawnedSignal>(OnBladeSpawnedSignal);
             _signalBus.Subscribe<BasketIsLoadedSignal>(OnBasketIsLoadedSignal);
             _signalBus.Subscribe<BasketSpawnedSignal>(OnBasketSpawnedSignal);
-            _signalBus.Subscribe<SlicingBreadDespawned>(OnSlicingBreadDespawned);
+            _signalBus.Subscribe<SlicingBreadDespawnedSignal>(OnSlicingBreadDespawned);
             _signalBus.Subscribe<PlayerCooldownSignal>(OnPlayerCooldownSignal);
             _signalBus.Subscribe<UpgradeBladeButtonPressedSignal>(OnUpgradeBladeButtonPressedSignal);
         }
@@ -82,7 +82,7 @@ namespace BreadCutter.Controllers
             _signalBus.Unsubscribe<BladeSpawnedSignal>(OnBladeSpawnedSignal);
             _signalBus.Unsubscribe<BasketIsLoadedSignal>(OnBasketIsLoadedSignal);
             _signalBus.Unsubscribe<BasketSpawnedSignal>(OnBasketSpawnedSignal);
-            _signalBus.Unsubscribe<SlicingBreadDespawned>(OnSlicingBreadDespawned);
+            _signalBus.Unsubscribe<SlicingBreadDespawnedSignal>(OnSlicingBreadDespawned);
             _signalBus.Unsubscribe<PlayerCooldownSignal>(OnPlayerCooldownSignal);
             _signalBus.Unsubscribe<UpgradeBladeButtonPressedSignal>(OnUpgradeBladeButtonPressedSignal);
         }

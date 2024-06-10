@@ -9,20 +9,24 @@ using UnityEngine;
 public class BreadSpawnController : BaseController
 {
     private LevelView _currentLevelView;
+    private int _availableLineAmount;
 
     #region Injection
 
     private BreadView.Factory _breadFactory;
     private BreadModel _breadModel;
     private BreadSettings _breadSettings;
+    private LevelSettings _levelSettings;
 
     public BreadSpawnController(BreadView.Factory breadFactory
         , BreadModel breadModel
-        , BreadSettings breadSettings)
+        , BreadSettings breadSettings
+        , LevelSettings levelSettings)
     {
         _breadFactory = breadFactory;
         _breadModel = breadModel;
         _breadSettings = breadSettings;
+        _levelSettings = levelSettings;
     }
 
     #endregion
@@ -32,7 +36,8 @@ public class BreadSpawnController : BaseController
         _signalBus.Subscribe<LevelSpawnedSignal>(OnLevelSpawnedSignal);
         _signalBus.Subscribe<AddBreadButtonPressedSignal>(OnAddBreadButtonPressedSignal);
         _signalBus.Subscribe<BreadSlicingDoneSignal>(OnBreadSlicingDoneSignal);
-        _signalBus.Subscribe<MergeAnimationIsDone>(OnMergeAnimationIsDoneSignal);
+        _signalBus.Subscribe<MergeAnimationIsDoneSignal>(OnMergeAnimationIsDoneSignal);
+        _signalBus.Subscribe<ConveyorExpandedSignal>(OnConveyorExpandedSignal);
     }
 
     private void OnLevelSpawnedSignal(LevelSpawnedSignal signal)
@@ -53,18 +58,23 @@ public class BreadSpawnController : BaseController
         {
             BreadData data = _breadSettings.Breads[0];
             List<BreadView> list = new List<BreadView>();
-            int lineIndex = _breadModel.GetNextBreadLineIndexToSpawn(_currentLevelView.breadPositions.Length);
 
-            for (int i = 0; i < 10; i++) //TODO fix magic numbers
+
+            if (_availableLineAmount == 0) { SetAvailableLineAmount();}
+
+            int lineIndex = _breadModel.GetNextBreadLineIndexToSpawn(_availableLineAmount);
+
+            for (int i = 0; i < _levelSettings.LineBreadAmount; i++)
             {
-                Vector3 pos = _currentLevelView.breadPositions[lineIndex].transform.position +
+                Vector3 pos = _currentLevelView.conveyorView.breadPositions[lineIndex].transform.position +
                               (-i * Vector3.right * data.DistanceNeededToSpawnNextBread);
 
                 BreadView bread = _breadFactory.Create(data, lineIndex, pos);
                 list.Add(bread);
             }
 
-            _breadModel.BreadLineSpawned(list, _currentLevelView.breadPositions.Length, lineIndex);
+            _breadModel.BreadLineSpawned(list, _currentLevelView.conveyorView.breadPositions.Length, lineIndex);
+            _breadModel.EmptyBreadSlotCheck(_availableLineAmount);
         }
     }
 
@@ -84,7 +94,7 @@ public class BreadSpawnController : BaseController
         _breadModel.SingleBreadSpawned(lineIndex, bread);
     }
 
-    private void OnMergeAnimationIsDoneSignal(MergeAnimationIsDone signal)
+    private void OnMergeAnimationIsDoneSignal(MergeAnimationIsDoneSignal signal)
     {
         List<BreadView> newList = SpawnMergedBreads(signal.List1);
 
@@ -102,7 +112,20 @@ public class BreadSpawnController : BaseController
         signal.List2.Clear();
 
         signal.List1.AddRange(newList);
-        _breadModel.EmptyBreadSlotCheck(_currentLevelView.breadPositions.Length);
+        _breadModel.EmptyBreadSlotCheck(_availableLineAmount);
+    }
+
+    private void OnConveyorExpandedSignal()
+    {
+        SetAvailableLineAmount();
+        _breadModel.EmptyBreadSlotCheck(_availableLineAmount);
+    }
+
+    private void SetAvailableLineAmount()
+    {
+        _availableLineAmount = _currentLevelView.conveyorView.ConveyorLevel == 1
+            ? _currentLevelView.conveyorView.ConveyorLevel
+            : _currentLevelView.conveyorView.ConveyorLevel * 2 - 1;
     }
 
     private List<BreadView> SpawnMergedBreads(List<BreadView> breadList)
@@ -115,9 +138,9 @@ public class BreadSpawnController : BaseController
         List<BreadView> list = new List<BreadView>();
         int lineIndex = breadList[0].LineIndex;
 
-        for (int i = 0; i < 10; i++) //TODO fix magic numbers
+        for (int i = 0; i < _levelSettings.LineBreadAmount; i++)
         {
-            Vector3 pos = _currentLevelView.breadPositions[lineIndex].transform.position +
+            Vector3 pos = _currentLevelView.conveyorView.breadPositions[lineIndex].transform.position +
                           (-i * Vector3.right * data.DistanceNeededToSpawnNextBread);
 
             BreadView newBread = _breadFactory.Create(data, lineIndex, pos);
@@ -132,6 +155,7 @@ public class BreadSpawnController : BaseController
         _signalBus.Unsubscribe<LevelSpawnedSignal>(OnLevelSpawnedSignal);
         _signalBus.Unsubscribe<AddBreadButtonPressedSignal>(OnAddBreadButtonPressedSignal);
         _signalBus.Unsubscribe<BreadSlicingDoneSignal>(OnBreadSlicingDoneSignal);
-        _signalBus.Unsubscribe<MergeAnimationIsDone>(OnMergeAnimationIsDoneSignal);
+        _signalBus.Unsubscribe<MergeAnimationIsDoneSignal>(OnMergeAnimationIsDoneSignal);
+        _signalBus.Unsubscribe<ConveyorExpandedSignal>(OnConveyorExpandedSignal);
     }
 }

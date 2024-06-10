@@ -23,3 +23,4 @@ MonoBehaviour:
   MaxCooldownAmount: 6
   PlayerInputEffectAmount: 3
   BladeTurnSpeed: 300
+  LineBreadAmount: 10

@@ -21,11 +21,13 @@ namespace BreadCutter.Installers
             Container.DeclareSignal<BasketIsLoadedSignal>().OptionalSubscriber();
             Container.DeclareSignal<BasketCanChangeSignal>().OptionalSubscriber();
             Container.DeclareSignal<MergeButtonPressedSignal>().OptionalSubscriber();
-            Container.DeclareSignal<MergeAnimationIsDone>().OptionalSubscriber();
-            Container.DeclareSignal<SlicingBreadDespawned>().OptionalSubscriber();
+            Container.DeclareSignal<MergeAnimationIsDoneSignal>().OptionalSubscriber();
+            Container.DeclareSignal<SlicingBreadDespawnedSignal>().OptionalSubscriber();
             Container.DeclareSignal<PlayerCooldownSignal>().OptionalSubscriber();
             Container.DeclareSignal<UpgradeBladeButtonPressedSignal>().OptionalSubscriber();
             Container.DeclareSignal<MergeOperationStartedSignal>().OptionalSubscriber();
+            Container.DeclareSignal<ExpandButtonPressedSignal>().OptionalSubscriber();
+            Container.DeclareSignal<ConveyorExpandedSignal>().OptionalSubscriber();
         }
     }
 }

@@ -83,19 +83,19 @@ public readonly struct MergeButtonPressedSignal
     
 }
 
-public readonly struct MergeAnimationIsDone
+public readonly struct MergeAnimationIsDoneSignal
 {
     public readonly List<BreadView> List1;
     public readonly List<BreadView> List2;
 
-    public MergeAnimationIsDone(List<BreadView> list1, List<BreadView> list2)
+    public MergeAnimationIsDoneSignal(List<BreadView> list1, List<BreadView> list2)
     {
         List1 = list1;
         List2 = list2;
     }
 }
 
-public readonly struct SlicingBreadDespawned
+public readonly struct SlicingBreadDespawnedSignal
 {
     
 }
@@ -116,6 +116,16 @@ public readonly struct UpgradeBladeButtonPressedSignal
 }
 
 public readonly struct MergeOperationStartedSignal
+{
+    
+}
+
+public readonly struct ExpandButtonPressedSignal
+{
+    
+}
+
+public readonly struct ConveyorExpandedSignal
 {
     
 }

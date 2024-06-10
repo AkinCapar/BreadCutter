@@ -23,14 +23,13 @@ namespace BreadCutter.Models
                 }
             }
             breadLines[lineIndex].AddRange(list);
-            EmptyBreadSlotCheck(slotAmount);
         }
 
         public int GetNextBreadLineIndexToSpawn(int slotAmount)
         {
             if (breadLines.Count >= slotAmount)
             {
-                for (int i = 0; i < breadLines.Count; i++)
+                for (int i = 0; i < slotAmount; i++)
                 {
                     if (breadLines[i].Count == 0)
                     {
@@ -46,7 +45,7 @@ namespace BreadCutter.Models
         {
             if (breadLines.Count >= slotAmount)
             {
-                for (int i = 0; i < breadLines.Count; i++)
+                for (int i = 0; i < slotAmount; i++)
                 {
                     if (breadLines[i].Count == 0)
                     {

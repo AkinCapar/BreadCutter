@@ -42,6 +42,7 @@ namespace BreadCutter.Installers
             Container.Bind<SliceController>().AsSingle();
             Container.Bind<MergeController>().AsSingle();
             Container.BindInterfacesAndSelfTo<InputController>().AsSingle();
+            Container.Bind<ConveyorController>().AsSingle();
 
             //FACTORIES
             InstallBreads();
