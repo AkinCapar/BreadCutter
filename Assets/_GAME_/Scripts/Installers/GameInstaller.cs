@@ -29,6 +29,7 @@ namespace BreadCutter.Installers
             //MODELS
             Container.Bind<LevelModel>().AsSingle();
             Container.Bind<BreadModel>().AsSingle();
+            Container.Bind<CurrencyModel>().AsSingle();
 
             //CONTROLLERS
             Container.BindInterfacesAndSelfTo<GameController>().AsSingle();
@@ -43,6 +44,7 @@ namespace BreadCutter.Installers
             Container.Bind<MergeController>().AsSingle();
             Container.BindInterfacesAndSelfTo<InputController>().AsSingle();
             Container.Bind<ConveyorController>().AsSingle();
+            Container.Bind<CurrencyController>().AsSingle();
 
             //FACTORIES
             InstallBreads();

@@ -14,4 +14,9 @@ namespace BreadCutter.Utils
     {
         IdleClickerState
     }
+
+    public enum CurrencyType
+    {
+        Money
+    }
 }
