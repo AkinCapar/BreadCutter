@@ -59,6 +59,7 @@ namespace BreadCutter.Views
             _colliderCenter = data.ColliderCenter;
             _boxCollider.size = _colliderSize;
             _boxCollider.center = _colliderCenter;
+            _boxCollider.enabled = true;
             _mainMeshGO.SetActive(true);
             breadMeshGO = _mainMeshGO;
             _mainMeshGO.transform.localPosition = data.MeshGOPosition;
@@ -113,6 +114,7 @@ namespace BreadCutter.Views
         
         private async UniTask BreadSlicingDone()
         {
+            _boxCollider.enabled = false;
             _signalBus.Fire(new BreadSlicingDoneSignal(_lineIndex, _breadLevel));
             MoveForward();
             

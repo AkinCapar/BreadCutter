@@ -10,6 +10,7 @@ namespace BreadCutter.Views
 {
     public class BasketView : MonoBehaviour, IPoolable<IMemoryPool>
     {
+        [SerializeField] private GameObject[] _additionalBaskets;
         private List<GameObject> _slices = new List<GameObject>();
         private int _sliceCount;
         private bool _isLoaded;
@@ -72,6 +73,17 @@ namespace BreadCutter.Views
         {
             _startPosZ = transform.position.z;
             transform.DOMoveZ(0, moveDuration);
+        }
+
+        public void RevealAdditionalBaskets()
+        {
+            foreach (GameObject basket in _additionalBaskets)
+            {
+                Vector3 basketScale = basket.transform.localScale;
+                basket.gameObject.transform.localScale = Vector3.zero;
+                basket.SetActive(true);
+                basket.gameObject.transform.DOScale(basketScale, .25f);
+            }
         }
         
         public void OnDespawned()

@@ -129,3 +129,8 @@ public readonly struct ConveyorExpandedSignal
 {
     
 }
+
+public readonly struct ConveyorReachedLevelThree
+{
+    
+}

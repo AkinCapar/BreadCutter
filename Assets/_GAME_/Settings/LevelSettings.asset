@@ -24,3 +24,4 @@ MonoBehaviour:
   PlayerInputEffectAmount: 3
   BladeTurnSpeed: 300
   LineBreadAmount: 10
+  MaxConveyorLevel: 5

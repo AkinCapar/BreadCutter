@@ -21,5 +21,6 @@ namespace BreadCutter.Settings
         public float PlayerInputEffectAmount;
         public float BladeTurnSpeed;
         public int LineBreadAmount;
+        public int MaxConveyorLevel;
     }
 }

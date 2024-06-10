@@ -124,7 +124,6 @@ namespace BreadCutter.Views
             _shouldStop = false;
         }
 
-
         private void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent(out BreadView bread))

@@ -28,6 +28,7 @@ namespace BreadCutter.Installers
             Container.DeclareSignal<MergeOperationStartedSignal>().OptionalSubscriber();
             Container.DeclareSignal<ExpandButtonPressedSignal>().OptionalSubscriber();
             Container.DeclareSignal<ConveyorExpandedSignal>().OptionalSubscriber();
+            Container.DeclareSignal<ConveyorReachedLevelThree>().OptionalSubscriber();
         }
     }
 }
