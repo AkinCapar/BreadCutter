@@ -44,7 +44,7 @@ namespace BreadCutter.Views
 
                 if (_conveyorLevel == 3)
                 {
-                    _signalBus.Fire<ConveyorReachedLevelThree>();
+                    _signalBus.Fire<ConveyorReachedLevelThreeSignal>();
                 }
             }
         }

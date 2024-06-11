@@ -17,6 +17,13 @@ namespace BreadCutter.Utils
 
     public enum CurrencyType
     {
-        Money
+        Coin
+    }
+    public enum UpgradeTypes
+    {
+        AddBread,
+        BladeUpgrade,
+        Merge,
+        Expand
     }
 }

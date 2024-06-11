@@ -13,9 +13,9 @@ namespace BreadCutter.Controllers
 
         private CurrencyModel _currencyModel;
 
-        public CurrencyController()
+        public CurrencyController(CurrencyModel currencyModel)
         {
-            
+            _currencyModel = currencyModel;
         }
         #endregion
         
@@ -30,11 +30,11 @@ namespace BreadCutter.Controllers
             UpdateCurrency(new CurrencyData(currencyData.CurrencyType, newValue));
         }
 
-        public float GetCurrency(CurrencyType currencyType)
+        public int GetCurrency(CurrencyType currencyType)
         {
             switch (currencyType)
             {
-                case CurrencyType.Money:
+                case CurrencyType.Coin:
                     return _currencyModel.MoneyValue;
             }
 
@@ -54,8 +54,9 @@ namespace BreadCutter.Controllers
         {
             switch (currencyData.CurrencyType)
             {
-                case CurrencyType.Money:
+                case CurrencyType.Coin:
                     _currencyModel.UpdateMoney(currencyData.CurrencyValue);
+                    _signalBus.Fire(new TotalCoinChangedSignal(_currencyModel.MoneyValue));
                     break;
             }
         }

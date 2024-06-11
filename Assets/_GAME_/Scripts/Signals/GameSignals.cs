@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using BreadCutter.Views;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -130,7 +131,17 @@ public readonly struct ConveyorExpandedSignal
     
 }
 
-public readonly struct ConveyorReachedLevelThree
+public readonly struct ConveyorReachedLevelThreeSignal
 {
     
+}
+
+public readonly struct TotalCoinChangedSignal
+{
+    public readonly int Value;
+
+    public TotalCoinChangedSignal(int value)
+    {
+        Value = value;
+    }
 }

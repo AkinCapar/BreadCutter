@@ -5,9 +5,9 @@ namespace BreadCutter.Models
 {
     public class CurrencyModel
     {
-        public float MoneyValue { get; private set; }
+        public int MoneyValue { get; private set; }
         
-        public void UpdateMoney(float newValue)
+        public void UpdateMoney(int newValue)
         {
             MoneyValue = newValue;
         }
@@ -16,7 +16,7 @@ namespace BreadCutter.Models
         {
             switch (currencyData.CurrencyType)
             {
-                case CurrencyType.Money:
+                case CurrencyType.Coin:
                     return currencyData.CurrencyValue <= MoneyValue;
                 default:
                     return false;

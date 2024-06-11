@@ -23,7 +23,7 @@ public class BasketSpawnController : BaseController
     {
         _signalBus.Subscribe<LevelSpawnedSignal>(OnLevelSpawnedSignal);
         _signalBus.Subscribe<BasketCanChangeSignal>(OnBasketCanChangeSignal);
-        _signalBus.Subscribe<ConveyorReachedLevelThree>(OnConveyorReachedLevelThree);
+        _signalBus.Subscribe<ConveyorReachedLevelThreeSignal>(OnConveyorReachedLevelThree);
     }
     
     private void OnLevelSpawnedSignal(LevelSpawnedSignal signal)
@@ -57,6 +57,6 @@ public class BasketSpawnController : BaseController
     {
         _signalBus.Unsubscribe<LevelSpawnedSignal>(OnLevelSpawnedSignal);
         _signalBus.Unsubscribe<BasketCanChangeSignal>(OnBasketCanChangeSignal);
-        _signalBus.Unsubscribe<ConveyorReachedLevelThree>(OnConveyorReachedLevelThree);
+        _signalBus.Unsubscribe<ConveyorReachedLevelThreeSignal>(OnConveyorReachedLevelThree);
     }
 }

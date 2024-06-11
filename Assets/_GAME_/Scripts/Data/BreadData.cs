@@ -14,5 +14,6 @@ namespace BreadCutter.Data
         public float DistanceNeededToSpawnNextBread;
         public Vector3 MeshGOPosition;
         public int MaterialAmount;
+        public int PricePerSlice;
     }
 }

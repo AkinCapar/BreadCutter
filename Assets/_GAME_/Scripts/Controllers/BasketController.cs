@@ -24,7 +24,7 @@ namespace BreadCutter.Controllers
         public override void Initialize()
         {
             _signalBus.Subscribe<BasketSpawnedSignal>(OnBasketSpawnedSignal);
-            _signalBus.Subscribe<ConveyorReachedLevelThree>(OnConveyorReachedLevelThree);
+            _signalBus.Subscribe<ConveyorReachedLevelThreeSignal>(OnConveyorReachedLevelThree);
         }
 
         private void OnBasketSpawnedSignal(BasketSpawnedSignal signal)
@@ -53,7 +53,7 @@ namespace BreadCutter.Controllers
         public override void Dispose()
         {
             _signalBus.Unsubscribe<BasketSpawnedSignal>(OnBasketSpawnedSignal);
-            _signalBus.Unsubscribe<ConveyorReachedLevelThree>(OnConveyorReachedLevelThree);
+            _signalBus.Unsubscribe<ConveyorReachedLevelThreeSignal>(OnConveyorReachedLevelThree);
         }
     }
 }

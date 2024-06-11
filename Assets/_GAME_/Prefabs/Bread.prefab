@@ -50,7 +50,8 @@ MonoBehaviour:
   _boxCollider: {fileID: 8226967273057369836}
   _mainMeshGO: {fileID: 4660900517264544180}
   _meshRenderer: {fileID: 7804989053506503802}
-  _sliceSize: {x: 0.1, y: 1, z: 1}
+  pricePerSlice: 0
+  sliceSize: {x: 0.1, y: 1, z: 1}
   breadMeshGO: {fileID: 4660900517264544180}
   sliceMaterial: {fileID: 2100000, guid: 9aa6069f1d157403b890a0e1e8dcc943, type: 2}
 --- !u!65 &8226967273057369836

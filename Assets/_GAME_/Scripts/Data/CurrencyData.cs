@@ -5,9 +5,9 @@ namespace BreadCutter.Data
     public struct CurrencyData
     {
         public CurrencyType CurrencyType;
-        public float CurrencyValue;
+        public int CurrencyValue;
 
-        public CurrencyData(CurrencyType currencyType, float currencyValue)
+        public CurrencyData(CurrencyType currencyType, int currencyValue)
         {
             CurrencyType = currencyType;
             CurrencyValue = currencyValue;

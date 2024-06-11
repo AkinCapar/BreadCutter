@@ -6,6 +6,7 @@ using BreadCutter.Settings;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace BreadCutter.Views
@@ -26,7 +27,8 @@ namespace BreadCutter.Views
         public int LineIndex => _lineIndex;
         private int _breadLevel;
         public int BreadLevel => _breadLevel;
-        public Vector3 _sliceSize;
+        public int pricePerSlice;
+        public Vector3 sliceSize;
         public GameObject breadMeshGO;
         public Material sliceMaterial;
         
@@ -57,6 +59,7 @@ namespace BreadCutter.Views
             _sliceThickness = data.SliceThickness;
             _colliderSize = data.ColliderSize;
             _colliderCenter = data.ColliderCenter;
+            pricePerSlice = data.PricePerSlice;
             _boxCollider.size = _colliderSize;
             _boxCollider.center = _colliderCenter;
             _boxCollider.enabled = true;
@@ -122,7 +125,7 @@ namespace BreadCutter.Views
             
             _trashObjects.Remove(breadMeshGO);
             breadMeshGO.transform.parent = null;
-            breadMeshGO.AddComponent<BoxCollider>().size = _sliceSize;;
+            breadMeshGO.AddComponent<BoxCollider>().size = sliceSize;;
             breadMeshGO.AddComponent<Rigidbody>();
             breadMeshGO.tag = Constants.Tags.Slice;
             

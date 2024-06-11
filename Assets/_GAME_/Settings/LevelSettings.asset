@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BladeInitialSpeed: 6
   BladeWaitTime: 3
-  BasketMaxSliceAmount: 40
+  BasketMaxSliceAmount: 30
   BasketMoveDuration: 3
   BasketWaitTime: 1
   MergeAnimationTime: 0.5
