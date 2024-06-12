@@ -17,6 +17,7 @@ public class Constants
 
     public struct ZenjectIDs
     {
+        public const string Camera = "MainCamera";
     }
         
     public struct Tags

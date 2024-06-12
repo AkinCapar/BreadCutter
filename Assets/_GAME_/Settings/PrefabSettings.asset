@@ -17,3 +17,4 @@ MonoBehaviour:
   BladePrefab: {fileID: -5798382909345461080, guid: 9fb0ba0fae81445d381328c9f18cdb9a, type: 3}
   BasketPrefab: {fileID: 5356241665394858729, guid: 5b9c2522d7499430aaad8f6761784ae3, type: 3}
   BreadPrefab: {fileID: 720921526177032428, guid: efa3431326a5f436b86315e34d33a607, type: 3}
+  CoinGainedFXPrefab: {fileID: 5359551813922785955, guid: 332896b100e174cabbebdea7f8648072, type: 3}

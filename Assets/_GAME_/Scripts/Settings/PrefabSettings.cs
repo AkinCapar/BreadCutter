@@ -14,5 +14,6 @@ namespace BreadCutter.Settings
         public BladeView BladePrefab;
         public BasketView BasketPrefab;
         public BreadView BreadPrefab;
+        public CoinGainedFXView CoinGainedFXPrefab;
     }
 }

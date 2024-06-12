@@ -51,6 +51,7 @@ namespace BreadCutter.Installers
             //FACTORIES
             InstallBreads();
             InstallBaskets();
+            InstallCoinGainedFXs();
         }
 
         private void InstallBreads()
@@ -65,8 +66,16 @@ namespace BreadCutter.Installers
         {
             Container.BindFactory<BasketView, BasketView.Factory>()
                 .FromPoolableMemoryPool<BasketView, BasketView.Pool>(poolBinder => poolBinder
-                    .WithInitialSize(5)
+                    .WithInitialSize(3)
                     .FromComponentInNewPrefab(_prefabSettings.BasketPrefab));
+        }
+
+        private void InstallCoinGainedFXs()
+        {
+            Container.BindFactory<CoinGainedFXView, CoinGainedFXView.Factory>()
+                .FromPoolableMemoryPool<CoinGainedFXView, CoinGainedFXView.Pool>(poolBinder => poolBinder
+                    .WithInitialSize(10)
+                    .FromComponentInNewPrefab(_prefabSettings.CoinGainedFXPrefab));
         }
     }
 }

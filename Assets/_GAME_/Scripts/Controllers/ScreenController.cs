@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BreadCutter.Settings;
 using BreadCutter.Utils;
+using BreadCutter.Views;
 using UnityEngine;
 using Zenject;
 
@@ -10,28 +11,36 @@ namespace BreadCutter.Controllers
     public class ScreenController : BaseController
     {
         private ScreenStates _currentState;
+        private IdleClickerScreenView _idleClickerScreenView;
         
         #region Injection
 
         private DiContainer _diContainer;
         private PrefabSettings _prefabSettings;
+        private CoinGainedFXView.Factory _coinGainedFXViewFactory;
+        private Camera _mainCamera;
         
         public ScreenController(DiContainer diContainer
-            , PrefabSettings prefabSettings)
+            , PrefabSettings prefabSettings
+            , CoinGainedFXView.Factory coinGainedFXViewFactory
+            , [Inject(Id = Constants.ZenjectIDs.Camera)] Camera camera)
         {
             _diContainer = diContainer;
             _prefabSettings = prefabSettings;
+            _coinGainedFXViewFactory = coinGainedFXViewFactory;
+            _mainCamera = camera;
         }
         #endregion
         
         public override void Initialize()
         {
             CreateState(ScreenStates.IdleClickerState);
+            _signalBus.Subscribe<SliceSignal>(OnSliceSignal);
         }
 
         public override void Dispose()
         {
-            
+            _signalBus.Unsubscribe<SliceSignal>(OnSliceSignal);
         }
 
         public void ChangeState(ScreenStates state)
@@ -54,9 +63,18 @@ namespace BreadCutter.Controllers
 
         private void SwitchToIdleClickerScreen()
         {
-            IdleClickerScreenView screenView = 
+            _idleClickerScreenView = 
                 _diContainer.InstantiatePrefabForComponent<IdleClickerScreenView>(_prefabSettings.IdleClickerScreenPrefab);
-            screenView.Initialize();
+            
+            _idleClickerScreenView.Initialize();
+        }
+
+        private void OnSliceSignal(SliceSignal signal)
+        {
+            CoinGainedFXView coinGainedFXView = _coinGainedFXViewFactory.Create();
+            coinGainedFXView.transform.parent = _idleClickerScreenView.transform;
+            coinGainedFXView.transform.position = _mainCamera.WorldToScreenPoint(signal.SlicePosition);
+            coinGainedFXView.SetTheEarnedAmount(signal.SliceObject.pricePerSlice);
         }
 
         private void ClearScreens()
