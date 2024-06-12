@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BreadCutter.Models;
 using BreadCutter.Settings;
+using BreadCutter.Utils;
 using BreadCutter.Views;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -16,12 +17,15 @@ namespace BreadCutter.Controllers
 
         private BreadModel _breadModel;
         private LevelSettings _levelSettings;
+        private UpgradeController _upgradeController;
 
         public MergeController(BreadModel breadModel
-            , LevelSettings levelSettings)
+            , LevelSettings levelSettings
+            , UpgradeController upgradeController)
         {
             _breadModel = breadModel;
             _levelSettings = levelSettings;
+            _upgradeController = upgradeController;
         }
 
         #endregion
@@ -44,7 +48,7 @@ namespace BreadCutter.Controllers
                 {
                     if (_breadModel.breadLines[i].Count > 0 && _breadModel.breadLines[j].Count > 0)
                     {
-                        if (_breadModel.breadLines[i][0].BreadLevel == _breadModel.breadLines[j][0].BreadLevel)
+                        if (_breadModel.breadLines[i][0].BreadLevel == _breadModel.breadLines[j][0].BreadLevel && _upgradeController.SpendCoinForUpgrade(UpgradeTypes.Merge))
                         {
                             _signalBus.Fire<MergeOperationStartedSignal>();
                             _merging = true;

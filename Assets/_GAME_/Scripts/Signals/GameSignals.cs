@@ -145,3 +145,13 @@ public readonly struct TotalCoinChangedSignal
         Value = value;
     }
 }
+
+public readonly struct BreadLineSpawnedSignal
+{
+    
+}
+
+public readonly struct BladeUpgradedSignal
+{
+    
+}

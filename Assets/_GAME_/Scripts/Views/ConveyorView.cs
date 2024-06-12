@@ -30,22 +30,19 @@ namespace BreadCutter.Views
 
         public void Expand()
         {
-            if (_conveyorLevel < _levelSettings.MaxConveyorLevel)
+            _conveyorLevel++;
+            Vector3 newScale = new Vector3(_bodyGameobjects[0].transform.localScale.x,
+                _bodyGameobjects[0].transform.localScale.y,
+                _bodyGameobjects[0].transform.localScale.z + 1);
+
+            foreach (GameObject obj in _bodyGameobjects)
             {
-                _conveyorLevel++;
-                Vector3 newScale = new Vector3(_bodyGameobjects[0].transform.localScale.x,
-                    _bodyGameobjects[0].transform.localScale.y,
-                    _bodyGameobjects[0].transform.localScale.z + 1);
+                obj.transform.localScale = newScale;
+            }
 
-                foreach (GameObject obj in _bodyGameobjects)
-                {
-                    obj.transform.localScale = newScale;
-                }
-
-                if (_conveyorLevel == 3)
-                {
-                    _signalBus.Fire<ConveyorReachedLevelThreeSignal>();
-                }
+            if (_conveyorLevel == 3)
+            {
+                _signalBus.Fire<ConveyorReachedLevelThreeSignal>();
             }
         }
     }

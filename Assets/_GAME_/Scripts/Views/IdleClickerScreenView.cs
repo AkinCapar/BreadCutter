@@ -47,27 +47,33 @@ public class IdleClickerScreenView : MonoBehaviour
         ExpandCostText.text = "Free";
         UpgradeBladeCostText.text = "Free";
         TotalCoinText.text = "0";
-        
+
         _signalBus.Subscribe<PlayerCooldownSignal>(OnPlayerCooldownSignal);
         _signalBus.Subscribe<TotalCoinChangedSignal>(OnTotalCoinChangedSignal);
+        _signalBus.Subscribe<MergeOperationStartedSignal>(OnMergeOperationStartedSignal);
+        _signalBus.Subscribe<BreadLineSpawnedSignal>(OnBreadLineSpawnedSignal);
+        _signalBus.Subscribe<ConveyorExpandedSignal>(OnConveyorExpandedSignal);
+        _signalBus.Subscribe<BladeUpgradedSignal>(OnBladeUpgradedSignal);
     }
 
     public void OnAddButtonPressed()
     {
-        if (_upgradeController.SpendCoinForUpgrade(UpgradeTypes.AddBread))
-        {
-            _signalBus.Fire<AddBreadButtonPressedSignal>();
-            AddBreadCostText.text = _upgradesModel.AddBreadValue.ToString();
-        }
+        _signalBus.Fire<AddBreadButtonPressedSignal>();
+    }
+
+    private void OnBreadLineSpawnedSignal()
+    {
+        AddBreadCostText.text = _upgradesModel.AddBreadValue.ToString();
     }
 
     public void OnMergeButtonPressed()
     {
-        if (_upgradeController.SpendCoinForUpgrade(UpgradeTypes.Merge))
-        {
-            _signalBus.Fire<MergeButtonPressedSignal>();
-            MergeCostText.text = _upgradesModel.MergeValue.ToString();
-        }
+        _signalBus.Fire<MergeButtonPressedSignal>();
+    }
+
+    private void OnMergeOperationStartedSignal()
+    {
+        MergeCostText.text = _upgradesModel.MergeValue.ToString();
     }
 
     public void OnPlayerCooldownSignal(PlayerCooldownSignal signal)
@@ -79,27 +85,29 @@ public class IdleClickerScreenView : MonoBehaviour
 
     public void OnExpandButtonPressed()
     {
-        if (_upgradeController.SpendCoinForUpgrade(UpgradeTypes.Expand))
-        {
-            _signalBus.Fire<ExpandButtonPressedSignal>();
-            ExpandCostText.text = _upgradesModel.ExpandValue.ToString();
-        }
+        _signalBus.Fire<ExpandButtonPressedSignal>();
+    }
+
+    private void OnConveyorExpandedSignal()
+    {
+        ExpandCostText.text = _upgradesModel.ExpandValue.ToString();
     }
 
     public void UpgradeBladeButtonPressed()
     {
-        if (_upgradeController.SpendCoinForUpgrade(UpgradeTypes.BladeUpgrade))
-        {
-            _signalBus.Fire<UpgradeBladeButtonPressedSignal>();
-            UpgradeBladeCostText.text = _upgradesModel.UpgradeBladeValue.ToString();
-        }
+        _signalBus.Fire<UpgradeBladeButtonPressedSignal>();
+    }
+
+    private void OnBladeUpgradedSignal()
+    {
+        UpgradeBladeCostText.text = _upgradesModel.UpgradeBladeValue.ToString();
     }
 
     private void OnTotalCoinChangedSignal(TotalCoinChangedSignal signal)
     {
         TotalCoinText.text = signal.Value.ToString();
     }
-    
+
     public void ResetGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

@@ -30,6 +30,8 @@ namespace BreadCutter.Installers
             Container.DeclareSignal<ConveyorExpandedSignal>().OptionalSubscriber();
             Container.DeclareSignal<ConveyorReachedLevelThreeSignal>().OptionalSubscriber();
             Container.DeclareSignal<TotalCoinChangedSignal>().OptionalSubscriber();
+            Container.DeclareSignal<BreadLineSpawnedSignal>().OptionalSubscriber();
+            Container.DeclareSignal<BladeUpgradedSignal>().OptionalSubscriber();
         }
     }
 }

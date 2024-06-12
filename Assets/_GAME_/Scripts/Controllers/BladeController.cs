@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BreadCutter.Data;
 using BreadCutter.Models;
 using BreadCutter.Settings;
+using BreadCutter.Utils;
 using BreadCutter.Views;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -13,21 +14,24 @@ namespace BreadCutter.Controllers
     public class BladeController : BaseController, ITickable
     {
         private BladeView _blade;
-        
+
         #region Injection
 
         private LevelSettings _levelSettings;
         private BladeSettings _bladeSettings;
+        private UpgradeController _upgradeController;
 
         public BladeController(LevelSettings levelSettings
-            , BladeSettings bladeSettings)
+            , BladeSettings bladeSettings
+            , UpgradeController upgradeController)
         {
             _levelSettings = levelSettings;
             _bladeSettings = bladeSettings;
+            _upgradeController = upgradeController;
         }
 
         #endregion
-        
+
         public override void Initialize()
         {
             _signalBus.Subscribe<BladeSpawnedSignal>(OnBladeSpawnedSignal);
@@ -52,6 +56,7 @@ namespace BreadCutter.Controllers
         {
             BladeCanMove().Forget();
         }
+
         private void OnSlicingBreadDespawned()
         {
             _blade.SlicingBreadDespawned();
@@ -59,9 +64,11 @@ namespace BreadCutter.Controllers
 
         private void OnPlayerCooldownSignal(PlayerCooldownSignal signal)
         {
-            float remapValue = 0 + (signal.TimeHeldDown - 0) * (0.2f * _levelSettings.PlayerInputEffectAmount - 0) / (_levelSettings.MaxCooldownAmount - 0);
-            _blade.SetInputPower( 1 + remapValue);
+            float remapValue = 0 + (signal.TimeHeldDown - 0) * (0.2f * _levelSettings.PlayerInputEffectAmount - 0) /
+                (_levelSettings.MaxCooldownAmount - 0);
+            _blade.SetInputPower(1 + remapValue);
         }
+
         private async UniTask BladeCanMove()
         {
             await UniTask.WaitForSeconds(_levelSettings.BladeWaitTime);
@@ -70,11 +77,12 @@ namespace BreadCutter.Controllers
 
         private void OnUpgradeBladeButtonPressedSignal()
         {
-            BladeData newData = _blade.BladeLevel + 1 >= _bladeSettings.BladeData.Length
-                ? _bladeSettings.BladeData[0]
-                : _bladeSettings.BladeData[_blade.BladeLevel + 1];
-            
-            _blade.UpgradeBlade(newData);
+            if (_blade.BladeLevel + 1 < _bladeSettings.BladeData.Length && _upgradeController.SpendCoinForUpgrade(UpgradeTypes.BladeUpgrade))
+            {
+                BladeData newData = _bladeSettings.BladeData[_blade.BladeLevel + 1];
+                _blade.UpgradeBlade(newData);
+                _signalBus.Fire<BladeUpgradedSignal>();
+            }
         }
 
         public override void Dispose()

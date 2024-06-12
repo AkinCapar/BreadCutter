@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using BreadCutter.Controllers;
 using BreadCutter.Data;
 using BreadCutter.Models;
 using BreadCutter.Settings;
+using BreadCutter.Utils;
 using BreadCutter.Views;
 using UnityEngine;
 
@@ -17,16 +19,19 @@ public class BreadSpawnController : BaseController
     private BreadModel _breadModel;
     private BreadSettings _breadSettings;
     private LevelSettings _levelSettings;
+    private UpgradeController _upgradeController;
 
     public BreadSpawnController(BreadView.Factory breadFactory
         , BreadModel breadModel
         , BreadSettings breadSettings
-        , LevelSettings levelSettings)
+        , LevelSettings levelSettings
+        , UpgradeController upgradeController)
     {
         _breadFactory = breadFactory;
         _breadModel = breadModel;
         _breadSettings = breadSettings;
         _levelSettings = levelSettings;
+        _upgradeController = upgradeController;
     }
 
     #endregion
@@ -42,40 +47,39 @@ public class BreadSpawnController : BaseController
 
     private void OnLevelSpawnedSignal(LevelSpawnedSignal signal)
     {
-        //TODO check it
         _currentLevelView = signal.LevelView;
-
-        /*for (int i = 0; i < _breadModel.ActiveBreadLevels.Count; i++)
-        {
-            BreadData data = _breadSettings.Breads[0];
-            _breadFactory.Create(data, _currentLevelView.breadPositions[i].transform.position);
-        }*/
     }
 
     private void OnAddBreadButtonPressedSignal()
     {
-        if (!_breadModel.IsBreadSlotsAreFull)
+        if (!_breadModel.IsBreadSlotsAreFull && _upgradeController.SpendCoinForUpgrade(UpgradeTypes.AddBread))
         {
-            BreadData data = _breadSettings.Breads[0];
-            List<BreadView> list = new List<BreadView>();
-
-
-            if (_availableLineAmount == 0) { SetAvailableLineAmount();}
-
-            int lineIndex = _breadModel.GetNextBreadLineIndexToSpawn(_availableLineAmount);
-
-            for (int i = 0; i < _levelSettings.LineBreadAmount; i++)
-            {
-                Vector3 pos = _currentLevelView.conveyorView.breadPositions[lineIndex].transform.position +
-                              (-i * Vector3.right * data.DistanceNeededToSpawnNextBread);
-
-                BreadView bread = _breadFactory.Create(data, lineIndex, pos);
-                list.Add(bread);
-            }
-
-            _breadModel.BreadLineSpawned(list, _currentLevelView.conveyorView.breadPositions.Length, lineIndex);
-            _breadModel.EmptyBreadSlotCheck(_availableLineAmount);
+            SpawnBreadLine();
+            _signalBus.Fire<BreadLineSpawnedSignal>();
         }
+    }
+    
+    private void SpawnBreadLine()
+    {
+        BreadData data = _breadSettings.Breads[0];
+        List<BreadView> list = new List<BreadView>();
+
+
+        if (_availableLineAmount == 0) { SetAvailableLineAmount();}
+
+        int lineIndex = _breadModel.GetNextBreadLineIndexToSpawn(_availableLineAmount);
+
+        for (int i = 0; i < _levelSettings.LineBreadAmount; i++)
+        {
+            Vector3 pos = _currentLevelView.conveyorView.breadPositions[lineIndex].transform.position +
+                          (-i * Vector3.right * data.DistanceNeededToSpawnNextBread);
+
+            BreadView bread = _breadFactory.Create(data, lineIndex, pos);
+            list.Add(bread);
+        }
+
+        _breadModel.BreadLineSpawned(list, _currentLevelView.conveyorView.breadPositions.Length, lineIndex);
+        _breadModel.EmptyBreadSlotCheck(_availableLineAmount);
     }
 
     private void OnBreadSlicingDoneSignal(BreadSlicingDoneSignal signal)

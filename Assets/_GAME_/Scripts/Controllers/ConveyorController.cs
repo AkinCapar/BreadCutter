@@ -1,18 +1,27 @@
+using BreadCutter.Settings;
+using BreadCutter.Utils;
 using BreadCutter.Views;
+
 namespace BreadCutter.Controllers
 {
     public class ConveyorController : BaseController
     {
         private ConveyorView _conveyorView;
-        
+
         #region Injection
 
-        public ConveyorController()
+        private LevelSettings _levelSettings;
+        private UpgradeController _upgradeController;
+
+        public ConveyorController(LevelSettings levelSettings
+            , UpgradeController upgradeController)
         {
-            
+            _levelSettings = levelSettings;
+            _upgradeController = upgradeController;
         }
+
         #endregion
-        
+
         public override void Initialize()
         {
             _signalBus.Subscribe<LevelSpawnedSignal>(OnLevelSpawnedSignal);
@@ -26,10 +35,14 @@ namespace BreadCutter.Controllers
 
         private void OnExpandButtonPressedSignal()
         {
-            _conveyorView.Expand();
-            _signalBus.Fire<ConveyorExpandedSignal>();
+            if (_conveyorView.ConveyorLevel < _levelSettings.MaxConveyorLevel &&
+                _upgradeController.SpendCoinForUpgrade(UpgradeTypes.Expand))
+            {
+                _conveyorView.Expand();
+                _signalBus.Fire<ConveyorExpandedSignal>();
+            }
         }
-        
+
         public override void Dispose()
         {
             _signalBus.Unsubscribe<LevelSpawnedSignal>(OnLevelSpawnedSignal);
