@@ -31,6 +31,7 @@ namespace BreadCutter.Installers
             Container.DeclareSignal<TotalCoinChangedSignal>().OptionalSubscriber();
             Container.DeclareSignal<BreadLineSpawnedSignal>().OptionalSubscriber();
             Container.DeclareSignal<BladeUpgradedSignal>().OptionalSubscriber();
+            Container.DeclareSignal<InitialBasketsSpawned>().OptionalSubscriber();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace BreadCutter.Views
     public class BasketView : MonoBehaviour, IPoolable<IMemoryPool>
     {
         private List<GameObject> _slices = new List<GameObject>();
+        [SerializeField] private List<BoxCollider> _colliders;
         private int _sliceCount;
         private bool _isLoaded;
         private float _startPosZ;
@@ -34,6 +35,10 @@ namespace BreadCutter.Views
         
         public void OnSpawned(IMemoryPool pool)
         {
+            foreach (BoxCollider coll in _colliders)
+            {
+                coll.enabled = false;
+            }
             _sliceCount = 0;
             _isLoaded = false;
             _pool = pool;
@@ -57,7 +62,7 @@ namespace BreadCutter.Views
 
         public void MoveLoadedBasket(float moveDuration)
         {
-            transform.DOMoveZ(-2 * _startPosZ, moveDuration * 2).OnComplete(() =>
+            transform.DOMoveZ(-24, moveDuration * 2).OnComplete(() =>
             {
                 foreach (GameObject slice in _slices)
                 {
@@ -68,10 +73,18 @@ namespace BreadCutter.Views
             });
         }
 
-        public void MoveToCollectionSpot(float moveDuration)
+        public void MoveForward(float moveDuration, float moveAmount)
         {
-            _startPosZ = transform.position.z;
-            transform.DOMoveZ(0, moveDuration);
+            transform.DOMoveZ(transform.position.z - moveAmount, moveDuration).OnComplete(() =>
+            {
+                if (transform.position.z < 3)
+                {
+                    foreach (BoxCollider coll in _colliders)
+                    {
+                        coll.enabled = true;
+                    }
+                }
+            });
         }
         
         public void OnDespawned()

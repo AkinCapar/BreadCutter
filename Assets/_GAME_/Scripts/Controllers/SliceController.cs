@@ -36,11 +36,10 @@ public class SliceController : BaseController
         GameObject slice = slicedObject.CreateUpperHull(obj, mat);
         
         breadLeft.transform.position = obj.transform.position;
-        breadLeft.transform.parent = bread.transform;
+        breadLeft.transform.SetParent(bread.transform);
         slice.transform.position = obj.transform.position;
         slice.transform.tag = Constants.Tags.Slice;
         bread.OnSliced(breadLeft);
-        //slice.AddComponent<BoxCollider>().size = bread.sliceSize;
         slice.AddComponent<CapsuleCollider>().height = 1f;
         CapsuleCollider coll = slice.GetComponent<CapsuleCollider>();
         coll.radius = .2f;

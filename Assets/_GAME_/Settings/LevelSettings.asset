@@ -15,7 +15,7 @@ MonoBehaviour:
   BladeInitialSpeed: 6
   BladeWaitTime: 3
   BasketMaxSliceAmount: 20
-  BasketMoveDuration: 3
+  BasketMoveDuration: 1.25
   BasketWaitTime: 2
   MergeAnimationTime: 0.5
   BladeBreadLevelDifferenceEffectAmount: 1

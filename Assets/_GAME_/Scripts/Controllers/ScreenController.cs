@@ -72,7 +72,7 @@ namespace BreadCutter.Controllers
         private void OnSliceSignal(SliceSignal signal)
         {
             CoinGainedFXView coinGainedFXView = _coinGainedFXViewFactory.Create();
-            coinGainedFXView.transform.parent = _idleClickerScreenView.transform;
+            coinGainedFXView.transform.SetParent(_idleClickerScreenView.transform);
             coinGainedFXView.transform.position = _mainCamera.WorldToScreenPoint(signal.SlicePosition);
             coinGainedFXView.SetTheEarnedAmount(signal.SliceObject.pricePerSlice);
         }

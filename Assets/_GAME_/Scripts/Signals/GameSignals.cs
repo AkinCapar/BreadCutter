@@ -151,3 +151,13 @@ public readonly struct BladeUpgradedSignal
 {
     
 }
+
+public readonly struct InitialBasketsSpawned
+{
+    public readonly List<BasketView> Baskets;
+
+    public InitialBasketsSpawned(List<BasketView> baskets)
+    {
+        Baskets = baskets;
+    }
+}

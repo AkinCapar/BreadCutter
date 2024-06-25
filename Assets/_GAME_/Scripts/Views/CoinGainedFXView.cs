@@ -16,7 +16,7 @@ namespace BreadCutter.Views
         
         public void OnDespawned()
         {
-            transform.parent = null;
+            transform.SetParent(null);
         }
 
         public void OnSpawned(IMemoryPool p1)

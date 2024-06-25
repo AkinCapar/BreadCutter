@@ -9,6 +9,7 @@ namespace BreadCutter.Controllers
 {
     public class BasketController : BaseController
     {
+        private List<BasketView> _baskets;
         private BasketView _basketView;
         
         #region Injection
@@ -24,6 +25,7 @@ namespace BreadCutter.Controllers
         public override void Initialize()
         {
             _signalBus.Subscribe<BasketSpawnedSignal>(OnBasketSpawnedSignal);
+            _signalBus.Subscribe<InitialBasketsSpawned>(OnInitialBasketsSpawnedSignal);
         }
 
         private void OnBasketSpawnedSignal(BasketSpawnedSignal signal)
@@ -31,22 +33,43 @@ namespace BreadCutter.Controllers
             MoveLoadedBasket(signal.Basket).Forget();
         }
 
+        private void OnInitialBasketsSpawnedSignal(InitialBasketsSpawned signal)
+        {
+            _baskets = signal.Baskets;
+            _basketView = _baskets[0];
+            foreach (BasketView basket in _baskets)
+            {
+                basket.MoveForward(_levelSettings.BasketMoveDuration, 12);
+            }
+        }
+
         private async UniTask MoveLoadedBasket(BasketView basket)
         {
-            await UniTask.WaitForSeconds(_levelSettings.BasketWaitTime);
-            
-            if (_basketView != null)
+            if (_basketView == null)
             {
-                _basketView.MoveLoadedBasket(_levelSettings.BasketMoveDuration);
+                return;
             }
             
-            _basketView = basket;
-            _basketView.MoveToCollectionSpot(_levelSettings.BasketMoveDuration);
+            await UniTask.WaitForSeconds(_levelSettings.BasketWaitTime);
+            
+
+            _basketView.MoveLoadedBasket(_levelSettings.BasketMoveDuration);
+            _baskets.Remove(_basketView);
+            
+            _basketView = _baskets[0];
+
+            foreach (BasketView basketView in _baskets)
+            {
+                basketView.MoveForward(_levelSettings.BasketMoveDuration, 6);
+            }
+            
+            _baskets.Add(basket);
         }
 
         public override void Dispose()
         {
             _signalBus.Unsubscribe<BasketSpawnedSignal>(OnBasketSpawnedSignal);
+            _signalBus.Unsubscribe<InitialBasketsSpawned>(OnInitialBasketsSpawnedSignal);
         }
     }
 }
