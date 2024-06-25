@@ -39,11 +39,6 @@ namespace BreadCutter.Views
             {
                 obj.transform.localScale = newScale;
             }
-
-            if (_conveyorLevel == 3)
-            {
-                _signalBus.Fire<ConveyorReachedLevelThreeSignal>();
-            }
         }
     }
 }

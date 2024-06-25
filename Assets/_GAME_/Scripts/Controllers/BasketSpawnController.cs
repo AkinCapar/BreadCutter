@@ -6,7 +6,6 @@ using UnityEngine;
 public class BasketSpawnController : BaseController
 {
     private Vector3 _spawnPos;
-    private bool spawnWithAdditionalBaskets;
     
     #region Injection
 
@@ -23,7 +22,6 @@ public class BasketSpawnController : BaseController
     {
         _signalBus.Subscribe<LevelSpawnedSignal>(OnLevelSpawnedSignal);
         _signalBus.Subscribe<BasketCanChangeSignal>(OnBasketCanChangeSignal);
-        _signalBus.Subscribe<ConveyorReachedLevelThreeSignal>(OnConveyorReachedLevelThree);
     }
     
     private void OnLevelSpawnedSignal(LevelSpawnedSignal signal)
@@ -31,20 +29,11 @@ public class BasketSpawnController : BaseController
         _spawnPos = signal.LevelView.basketPos.position;
         SpawnBasket();
     }
-    
-    private void OnConveyorReachedLevelThree()
-    {
-        spawnWithAdditionalBaskets = true;
-    }
 
     private void SpawnBasket()
     {
         BasketView basketView = _basketFactory.Create();
         basketView.transform.position = _spawnPos;
-        if (spawnWithAdditionalBaskets)
-        {
-            basketView.RevealAdditionalBaskets();
-        }
         _signalBus.Fire(new BasketSpawnedSignal(basketView));
     }
 
@@ -57,6 +46,5 @@ public class BasketSpawnController : BaseController
     {
         _signalBus.Unsubscribe<LevelSpawnedSignal>(OnLevelSpawnedSignal);
         _signalBus.Unsubscribe<BasketCanChangeSignal>(OnBasketCanChangeSignal);
-        _signalBus.Unsubscribe<ConveyorReachedLevelThreeSignal>(OnConveyorReachedLevelThree);
     }
 }

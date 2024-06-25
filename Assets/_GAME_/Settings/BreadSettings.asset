@@ -21,7 +21,7 @@ MonoBehaviour:
     DistanceNeededToSpawnNextBread: 3
     MeshGOPosition: {x: -1.3, y: -0.15, z: 0}
     MaterialAmount: 2
-    PricePerSlice: 5
+    PricePerSlice: 500
   - BreadLevel: 1
     Mesh: {fileID: 1630225116190508878, guid: c7b753a05ca87499d8cdc65533d2d38d, type: 3}
     SliceThickness: 0.2

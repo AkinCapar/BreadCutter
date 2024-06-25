@@ -131,10 +131,6 @@ public readonly struct ConveyorExpandedSignal
     
 }
 
-public readonly struct ConveyorReachedLevelThreeSignal
-{
-    
-}
 
 public readonly struct TotalCoinChangedSignal
 {

@@ -40,7 +40,11 @@ public class SliceController : BaseController
         slice.transform.position = obj.transform.position;
         slice.transform.tag = Constants.Tags.Slice;
         bread.OnSliced(breadLeft);
-        slice.AddComponent<BoxCollider>().size = bread.sliceSize;;
+        //slice.AddComponent<BoxCollider>().size = bread.sliceSize;
+        slice.AddComponent<CapsuleCollider>().height = 1f;
+        CapsuleCollider coll = slice.GetComponent<CapsuleCollider>();
+        coll.radius = .2f;
+        coll.direction = 2;
         slice.AddComponent<Rigidbody>();
     }
 
