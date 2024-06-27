@@ -21,7 +21,7 @@ MonoBehaviour:
   BladeBreadLevelDifferenceEffectAmount: 1
   DefaultBladeSlicingDelay: 0.8
   MaxCooldownAmount: 6
-  PlayerInputEffectAmount: 3
+  PlayerInputEffectAmount: 6
   BladeTurnSpeed: 300
   LineBreadAmount: 10
   MaxConveyorLevel: 5

@@ -19,9 +19,15 @@ MonoBehaviour:
   - BladeLevel: 1
     Mesh: {fileID: 506893626503705964, guid: c7b753a05ca87499d8cdc65533d2d38d, type: 3}
     ColliderSize: {x: 0, y: 0, z: 0}
-  - BladeLevel: 1
+  - BladeLevel: 2
     Mesh: {fileID: 6357616769542740209, guid: c7b753a05ca87499d8cdc65533d2d38d, type: 3}
     ColliderSize: {x: 0, y: 0, z: 0}
   - BladeLevel: 3
+    Mesh: {fileID: -4219333817343177906, guid: c7b753a05ca87499d8cdc65533d2d38d, type: 3}
+    ColliderSize: {x: 0, y: 0, z: 0}
+  - BladeLevel: 4
+    Mesh: {fileID: -4219333817343177906, guid: c7b753a05ca87499d8cdc65533d2d38d, type: 3}
+    ColliderSize: {x: 0, y: 0, z: 0}
+  - BladeLevel: 5
     Mesh: {fileID: -4219333817343177906, guid: c7b753a05ca87499d8cdc65533d2d38d, type: 3}
     ColliderSize: {x: 0, y: 0, z: 0}

@@ -92,6 +92,7 @@ namespace BreadCutter.Views
             if (other.TryGetComponent(out BreadView bread))
             {
                 int levelDifference = bread.BreadLevel - _bladeLevel;
+                Debug.Log("level diff: " + levelDifference + " blade lvl: " + _bladeLevel + " bread lvl: " + bread.BreadLevel);
                 float newSlicingPower =
                     (_defaultSlicingPower - levelDifference * _levelSettings.BladeBreadLevelDifferenceEffectAmount) - _levelSettings.DefaultBladeSlicingDelay;
 
