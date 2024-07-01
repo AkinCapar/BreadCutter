@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: LevelSettings
   m_EditorClassIdentifier: 
   BladeInitialSpeed: 6
-  BladeWaitTime: 3
+  BladeWaitTime: 1.5
   BasketMaxSliceAmount: 20
-  BasketMoveDuration: 1.25
+  BasketMoveDuration: 0.5
   BasketWaitTime: 2
   MergeAnimationTime: 0.5
   BladeBreadLevelDifferenceEffectAmount: 1
